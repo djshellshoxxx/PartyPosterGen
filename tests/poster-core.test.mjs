@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';import {PRESETS,TEMPLATES,safeFilename,splitLineup,compactDetails,preset,template,aspect,fontSizeForText} from '../poster-core.js';
+assert.equal(TEMPLATES.length,12);
+assert.equal(Object.keys(PRESETS).length>=8,true);
+assert.equal(safeFilename('My Rave: 2026!'),'my-rave-2026');
+assert.deepEqual(splitLineup('DJ One\nDJ Two, DJ Three'),['DJ One','DJ Two','DJ Three']);
+assert.deepEqual(compactDetails({date:'Sat',time:'10PM',venue:'',city:'Vancouver'}),['Sat','10PM','Vancouver']);
+assert.equal(preset('missing').label,'Instagram 4:5');
+assert.equal(template('minimal').name,'Minimal Club');
+assert.ok(aspect('story')<1);
+assert.ok(fontSizeForText('SHORT',100,20,18)===100);
+assert.ok(fontSizeForText('THIS IS A VERY LONG EVENT TITLE THAT NEEDS TO SHRINK',100,20,18)<100);
+console.log('PartyPosterGen core tests: PASS');
