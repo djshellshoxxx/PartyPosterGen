@@ -22,6 +22,10 @@ export const TEMPLATES=[
   {id:'grunge',name:'Street / Grunge',tags:['grunge','zine'],titleFont:'Impact',bodyFont:'Courier New'},
   {id:'photo',name:'Photo-driven DJ',tags:['photo','dj'],titleFont:'Arial Black',bodyFont:'Arial'},
   {id:'collage',name:'Collage / Zine',tags:['collage','zine'],titleFont:'Arial Black',bodyFont:'Courier New'},
+  {id:'hiphop',name:'Urban Hip-Hop',tags:['hip-hop','urban'],titleFont:'Impact',bodyFont:'Arial Black'},
+  {id:'turntablist',name:'Turntablism',tags:['vinyl','dj','hip-hop'],titleFont:'Arial Black',bodyFont:'Arial'},
+  {id:'synthwave',name:'Synth Hardware',tags:['synth','electronic'],titleFont:'Arial Black',bodyFont:'Courier New'},
+  {id:'hardcore',name:'Hardcore Xerox',tags:['hardcore','rave','photocopy'],titleFont:'Impact',bodyFont:'Courier New'},
   {id:'blank',name:'Blank Quick Layout',tags:['clean','neutral'],titleFont:'Arial Black',bodyFont:'Arial'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
