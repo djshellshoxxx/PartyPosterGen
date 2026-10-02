@@ -7,7 +7,6 @@ export const EMAIL_TEMPLATES={
   community:{name:'Friends & community',subject:'Come out to {title}',body:'Hey!\n\nWe’re putting on {title} and wanted to send you the flyer.\n\n{dateTime}\n{venueLine}\n{lineupLine}\n\nHope to see you there.\n\n{urlLine}'},
   minimal:{name:'Minimal',subject:'{title}',body:'{title}\n{dateTime}\n{venueLine}\n{urlLine}\n\nFlyer attached.'}
 };
-
 function field(name){return document.querySelector(`[data-field="${name}"]`)?.value||''}
 function currentState(){return {title:field('title'),date:field('date'),time:field('time'),venue:field('venue'),city:field('city'),lineup:field('lineup'),extra:field('extra'),url:field('url')}}
 function cleanParts(parts,join=' · '){return parts.map(v=>String(v||'').trim()).filter(Boolean).join(join)}
@@ -15,35 +14,6 @@ function vars(state){return {title:state.title||'Party / event',dateTime:cleanPa
 function fill(tpl,state){const v=vars(state);return String(tpl).replace(/\{(\w+)\}/g,(_,k)=>v[k]??'').replace(/\n{3,}/g,'\n\n').trim()}
 function dataUrlToBase64(dataUrl){return dataUrl.split(',')[1]||''}
 function filename(){const raw=field('title')||'party-poster';return raw.normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase()||'party-poster'}
-
-export function initEmailPoster(){
-  const panel=$('#emailPanel'),open=$('#emailPoster'),close=$('#emailClose'),template=$('#emailTemplate'),subject=$('#emailSubject'),body=$('#emailBody'),to=$('#emailTo'),endpoint=$('#emailEndpoint'),token=$('#emailToken'),send=$('#emailSend'),status=$('#emailStatus');
-  if(!panel||!open)return;
-  template.innerHTML=Object.entries(EMAIL_TEMPLATES).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
-  endpoint.value=localStorage.getItem('partypostergen-mailer-url')||'';
-  function applyTemplate(){const s=currentState(),t=EMAIL_TEMPLATES[template.value]||EMAIL_TEMPLATES.invite;subject.value=fill(t.subject,s);body.value=fill(t.body,s)}
-  open.onclick=()=>{panel.hidden=false;applyTemplate();status.textContent=''};
-  close.onclick=()=>panel.hidden=true;
-  template.onchange=applyTemplate;
-  send.onclick=async()=>{
-    const url=endpoint.value.trim().replace(/\/$/,'');
-    if(!url){status.textContent='Enter the URL of your PartyPosterGen mail server.';return}
-    if(!to.value.trim()){status.textContent='Enter at least one recipient.';return}
-    if(!token.value){status.textContent='Enter your mailer access key.';return}
-    localStorage.setItem('partypostergen-mailer-url',url);
-    send.disabled=true;status.textContent='Preparing poster…';
-    try{
-      const canvas=$('#poster');
-      const png=canvas.toDataURL('image/png');
-      const payload={to:to.value,subject:subject.value.trim(),text:body.value,attachment:{filename:`${filename()}.png`,mime:'image/png',base64:dataUrlToBase64(png)}};
-      status.textContent='Sending…';
-      const res=await fetch(`${url}/api/send-poster`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token.value}`},body:JSON.stringify(payload)});
-      const out=await res.json().catch(()=>({}));
-      if(!res.ok)throw new Error(out.error||`Mailer returned ${res.status}`);
-      status.textContent=`Sent${out.accepted?` to ${out.accepted}`:''}.`;
-    }catch(e){status.textContent=`Could not send: ${e.message}`}
-    finally{send.disabled=false}
-  };
-}
-
+function injectUi(){if($('#emailPoster'))return;const style=document.createElement('style');style.textContent=`.email-fab{position:fixed;right:20px;bottom:20px;z-index:90;background:#315f8d;color:#fff;border:1px solid #78a8d5;border-radius:999px;padding:12px 18px;font-weight:800;box-shadow:0 12px 36px #0008}.email-panel{position:fixed;inset:0;z-index:100;background:#000b;display:grid;place-items:center;padding:20px}.email-panel[hidden]{display:none}.email-card{width:min(680px,96vw);max-height:92vh;overflow:auto;background:#0b131e;border:1px solid #2d4158;border-radius:14px;padding:18px;box-shadow:0 30px 90px #000}.email-card h2{margin:0}.email-card .head{display:flex;justify-content:space-between;gap:14px;align-items:center}.email-card .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.email-card label{display:grid;gap:6px;margin-top:12px}.email-card input,.email-card select,.email-card textarea{width:100%;box-sizing:border-box}.email-card textarea{min-height:170px}.email-actions{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}.email-status{font-size:13px;color:#b9cadd}.email-note{font-size:12px;color:#8ea3b8;line-height:1.5}@media(max-width:600px){.email-card .grid{grid-template-columns:1fr}}`;document.head.appendChild(style);const button=document.createElement('button');button.id='emailPoster';button.className='email-fab';button.textContent='Email poster';document.body.appendChild(button);const panel=document.createElement('div');panel.id='emailPanel';panel.className='email-panel';panel.hidden=true;panel.innerHTML=`<div class="email-card"><div class="head"><div><h2>Email poster</h2><p class="email-note">Attach the current poster and send it through your self-hosted PartyPosterGen mail server.</p></div><button id="emailClose">Close</button></div><div class="grid"><label>Recipients<input id="emailTo" type="text" placeholder="friend@example.com; promoter@example.com"></label><label>Message template<select id="emailTemplate"></select></label></div><label>Subject<input id="emailSubject" type="text"></label><label>Message<textarea id="emailBody"></textarea></label><details><summary>Mailer server settings</summary><div class="grid"><label>Server URL<input id="emailEndpoint" type="url" placeholder="https://mailer.example.com"></label><label>Access key<input id="emailToken" type="password" autocomplete="off"></label></div><p class="email-note">GitHub Pages cannot safely contain SMTP credentials. Run the included <code>server/</code> service separately and point this client at it.</p></details><div class="email-actions"><button id="emailSend" class="primary">Send poster</button><span id="emailStatus" class="email-status"></span></div></div>`;document.body.appendChild(panel)}
+export function initEmailPoster(){injectUi();const panel=$('#emailPanel'),open=$('#emailPoster'),close=$('#emailClose'),template=$('#emailTemplate'),subject=$('#emailSubject'),body=$('#emailBody'),to=$('#emailTo'),endpoint=$('#emailEndpoint'),token=$('#emailToken'),send=$('#emailSend'),status=$('#emailStatus');template.innerHTML=Object.entries(EMAIL_TEMPLATES).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');endpoint.value=localStorage.getItem('partypostergen-mailer-url')||'';function applyTemplate(){const s=currentState(),t=EMAIL_TEMPLATES[template.value]||EMAIL_TEMPLATES.invite;subject.value=fill(t.subject,s);body.value=fill(t.body,s)}open.onclick=()=>{panel.hidden=false;applyTemplate();status.textContent=''};close.onclick=()=>panel.hidden=true;panel.addEventListener('click',e=>{if(e.target===panel)panel.hidden=true});template.onchange=applyTemplate;send.onclick=async()=>{const url=endpoint.value.trim().replace(/\/$/,'');if(!url){status.textContent='Enter the URL of your PartyPosterGen mail server.';return}if(!to.value.trim()){status.textContent='Enter at least one recipient.';return}if(!token.value){status.textContent='Enter your mailer access key.';return}localStorage.setItem('partypostergen-mailer-url',url);send.disabled=true;status.textContent='Preparing poster…';try{const canvas=$('#poster'),png=canvas.toDataURL('image/png'),payload={to:to.value,subject:subject.value.trim(),text:body.value,attachment:{filename:`${filename()}.png`,mime:'image/png',base64:dataUrlToBase64(png)}};status.textContent='Sending…';const res=await fetch(`${url}/api/send-poster`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token.value}`},body:JSON.stringify(payload)}),out=await res.json().catch(()=>({}));if(!res.ok)throw new Error(out.error||`Mailer returned ${res.status}`);status.textContent=`Sent${out.accepted?` to ${out.accepted} recipient${out.accepted===1?'':'s'}`:''}.`}catch(e){status.textContent=`Could not send: ${e.message}`}finally{send.disabled=false}}}
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initEmailPoster):initEmailPoster();
