@@ -8,24 +8,20 @@ export const EMAIL_TEMPLATES={
   minimal:{name:'Minimal',subject:'{title}',body:'{title}\n{dateTime}\n{venueLine}\n{urlLine}\n\nFlyer attached.'}
 };
 
+function field(name){return document.querySelector(`[data-field="${name}"]`)?.value||''}
+function currentState(){return {title:field('title'),date:field('date'),time:field('time'),venue:field('venue'),city:field('city'),lineup:field('lineup'),extra:field('extra'),url:field('url')}}
 function cleanParts(parts,join=' · '){return parts.map(v=>String(v||'').trim()).filter(Boolean).join(join)}
-function vars(state){return {
-  title:state.title||'Party / event',
-  dateTime:cleanParts([state.date,state.time]),
-  venueLine:cleanParts([state.venue,state.city]),
-  lineupLine:state.lineup?`Lineup: ${String(state.lineup).split(/\n|,/).map(s=>s.trim()).filter(Boolean).join(' · ')}`:'',
-  extra:state.extra||'',
-  urlLine:state.url?`Details / tickets: ${state.url}`:''
-}}
+function vars(state){return {title:state.title||'Party / event',dateTime:cleanParts([state.date,state.time]),venueLine:cleanParts([state.venue,state.city]),lineupLine:state.lineup?`Lineup: ${String(state.lineup).split(/\n|,/).map(s=>s.trim()).filter(Boolean).join(' · ')}`:'',extra:state.extra||'',urlLine:state.url?`Details / tickets: ${state.url}`:''}}
 function fill(tpl,state){const v=vars(state);return String(tpl).replace(/\{(\w+)\}/g,(_,k)=>v[k]??'').replace(/\n{3,}/g,'\n\n').trim()}
 function dataUrlToBase64(dataUrl){return dataUrl.split(',')[1]||''}
+function filename(){const raw=field('title')||'party-poster';return raw.normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase()||'party-poster'}
 
-export function initEmailPoster({getState,getCanvas,getFilename}){
+export function initEmailPoster(){
   const panel=$('#emailPanel'),open=$('#emailPoster'),close=$('#emailClose'),template=$('#emailTemplate'),subject=$('#emailSubject'),body=$('#emailBody'),to=$('#emailTo'),endpoint=$('#emailEndpoint'),token=$('#emailToken'),send=$('#emailSend'),status=$('#emailStatus');
   if(!panel||!open)return;
   template.innerHTML=Object.entries(EMAIL_TEMPLATES).map(([id,t])=>`<option value="${id}">${t.name}</option>`).join('');
   endpoint.value=localStorage.getItem('partypostergen-mailer-url')||'';
-  function applyTemplate(){const s=getState(),t=EMAIL_TEMPLATES[template.value]||EMAIL_TEMPLATES.invite;subject.value=fill(t.subject,s);body.value=fill(t.body,s)}
+  function applyTemplate(){const s=currentState(),t=EMAIL_TEMPLATES[template.value]||EMAIL_TEMPLATES.invite;subject.value=fill(t.subject,s);body.value=fill(t.body,s)}
   open.onclick=()=>{panel.hidden=false;applyTemplate();status.textContent=''};
   close.onclick=()=>panel.hidden=true;
   template.onchange=applyTemplate;
@@ -33,18 +29,21 @@ export function initEmailPoster({getState,getCanvas,getFilename}){
     const url=endpoint.value.trim().replace(/\/$/,'');
     if(!url){status.textContent='Enter the URL of your PartyPosterGen mail server.';return}
     if(!to.value.trim()){status.textContent='Enter at least one recipient.';return}
+    if(!token.value){status.textContent='Enter your mailer access key.';return}
     localStorage.setItem('partypostergen-mailer-url',url);
     send.disabled=true;status.textContent='Preparing poster…';
     try{
-      const canvas=getCanvas();
+      const canvas=$('#poster');
       const png=canvas.toDataURL('image/png');
-      const payload={to:to.value,subject:subject.value.trim(),text:body.value,attachment:{filename:`${getFilename()}.png`,mime:'image/png',base64:dataUrlToBase64(png)}};
+      const payload={to:to.value,subject:subject.value.trim(),text:body.value,attachment:{filename:`${filename()}.png`,mime:'image/png',base64:dataUrlToBase64(png)}};
       status.textContent='Sending…';
       const res=await fetch(`${url}/api/send-poster`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${token.value}`},body:JSON.stringify(payload)});
       const out=await res.json().catch(()=>({}));
       if(!res.ok)throw new Error(out.error||`Mailer returned ${res.status}`);
-      status.textContent=`Sent to ${out.accepted||'recipient'}.`;
+      status.textContent=`Sent${out.accepted?` to ${out.accepted}`:''}.`;
     }catch(e){status.textContent=`Could not send: ${e.message}`}
     finally{send.disabled=false}
   };
 }
+
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',initEmailPoster):initEmailPoster();
