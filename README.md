@@ -1,24 +1,23 @@
 # PartyPosterGen
 
-**PartyPosterGen by Circuit Drift Labs** is a fast, template-first rave, DJ and party poster generator that runs entirely in the browser.
+**PartyPosterGen by Circuit Drift Labs** is a fast, template-first rave, DJ, hip-hop and party poster generator.
 
 Live site: https://djshellshoxxx.github.io/PartyPosterGen/
 
-Circuit Drift Labs: https://circuitdriftlabs.djshellshoxxx.github.io/
+Circuit Drift Labs: https://djshellshoxxx.github.io/circuitdriftlabs/
 
 ## What it does
 
 PartyPosterGen is designed for making a usable flyer quickly rather than recreating Canva, Illustrator or a word processor.
 
-Current V1 includes:
+Current browser build includes:
 
-- 12 nightlife/party poster template families
+- 16 nightlife/party template families including rave, techno, trance, hip-hop, turntablism and synth-hardware styles
 - all event fields optional
 - title, tagline, date, time, venue, city, lineup, ticket price, age restriction, organizer, notes and ticket/RSVP URL
-- uploaded local images
-- direct image dragging on the poster
-- image scaling
-- generated procedural backgrounds
+- uploaded local image placement, dragging and scaling
+- 15 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield and Xerox/hardcore looks
+- rave/urban clip art including acid smiley, speaker, vinyl, turntable, synth, microphone, headphones, spray can and lightning bolt
 - curated Pexels stock backgrounds with procedural fallback
 - multiple color palettes
 - advanced font choices
@@ -28,7 +27,8 @@ Current V1 includes:
 - print and social output presets
 - PNG/JPG download
 - browser Print / Save as PDF workflow
-- output rerendered at the selected preset resolution
+- poster email composer with premade invite, promo, venue, community and minimal messages
+- optional self-hosted SMTP mail service in `server/`
 
 No field is mandatory. Empty fields collapse out of the composition.
 
@@ -36,30 +36,53 @@ No field is mandatory. Empty fields collapse out of the composition.
 
 Included presets cover Instagram portrait, square, Story 9:16, high-resolution web poster, 5×7, Letter, 11×17, A5, A4 and A3.
 
+## Emailing posters
+
+GitHub Pages cannot securely contain SMTP credentials, so PartyPosterGen separates the browser composer from the mail-delivery service.
+
+The browser page includes an **Email poster** button. It attaches the currently rendered poster as PNG and offers premade message templates. The included `server/` service sends the message through SMTP.
+
+The mail server includes:
+
+- bearer-token authentication
+- allowed-origin restriction
+- rate limiting
+- configurable maximum recipients per send
+- configurable maximum attachment size
+- server-side SMTP credentials only
+- Dockerfile for simple deployment
+
+Set up the service:
+
+```bash
+cd server
+cp .env.example .env
+# fill in SMTP and access-key values
+npm install
+npm start
+```
+
+Environment variables are documented in `server/.env.example`. Point the browser email panel at the HTTPS URL where you deploy the mailer. Do not put SMTP passwords in the GitHub Pages JavaScript.
+
 ## Licensed stock backgrounds
 
 The app includes optional remote stock backgrounds from Pexels. Pexels states that its photos can be used for free, modified, and used in print marketing material such as flyers. Attribution is not required under the Pexels license but is retained here for provenance.
 
-Current curated sources:
+Current curated sources include nightlife, turntable, synthesizer/studio and urban/graffiti imagery. The generated/procedural backgrounds are original browser-rendered graphics and remain available if a stock image cannot load.
 
-- Daniel Nouri — Colored Lights in the Club: https://www.pexels.com/photo/colored-lights-in-the-club-8448565/
-- Maor Attias — People Dancing in Nightclub: https://www.pexels.com/photo/people-dancing-in-nightclub-5192299/
-- Caleb Oquendo — People on Party in Club: https://www.pexels.com/photo/people-on-party-in-club-10024815/
-- Pexels license: https://www.pexels.com/license/
-
-The generated/procedural backgrounds are original browser-rendered graphics and remain available if a stock image cannot load.
+Pexels license: https://www.pexels.com/license/
 
 ## QR code library
 
-QR rendering uses the MIT-licensed `qrcodejs` project by David Shim via jsDelivr/GitHub. The rest of the app does not require a backend.
+QR rendering uses the MIT-licensed `qrcodejs` project. The poster editor itself does not require a backend.
 
 ## Privacy
 
-Uploaded images and event data remain in the browser. PartyPosterGen does not upload project contents to Circuit Drift Labs.
+Uploaded images and event data remain in the browser. They are sent off-device only when the user explicitly uses the email feature, in which case the rendered poster and entered email message are sent to the configured PartyPosterGen mail service for delivery.
 
 ## Development
 
-The application is static HTML/CSS/JavaScript.
+The application is static HTML/CSS/JavaScript, plus an optional Node mail service.
 
 ```bash
 node tests/poster-core.test.mjs
