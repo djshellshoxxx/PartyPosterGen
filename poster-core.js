@@ -28,6 +28,17 @@ export const TEMPLATES=[
   {id:'hardcore',name:'Hardcore Xerox',tags:['hardcore','rave','photocopy'],titleFont:'Impact',bodyFont:'Courier New'},
   {id:'blank',name:'Blank Quick Layout',tags:['clean','neutral'],titleFont:'Arial Black',bodyFont:'Arial'}
 ];
+export const BACKGROUND_STYLES=[
+  {id:'waves',label:'Rave waves'},{id:'laser',label:'Laser fan'},{id:'tunnel',label:'Infinite tunnel'},
+  {id:'speakers',label:'Speaker wall'},{id:'vinyl',label:'Giant vinyl'},{id:'turntable',label:'Turntables + mixer'},
+  {id:'synth',label:'Synth panel + keys'},{id:'urban',label:'Urban skyline / graffiti'},{id:'boombox',label:'Boombox'},
+  {id:'checker',label:'Checker rave'},{id:'chrome',label:'Chrome rings'},{id:'sunset',label:'Retro sunset'},
+  {id:'warehouse',label:'Warehouse grid'},{id:'starfield',label:'Starfield'},{id:'xerox',label:'Xerox / hardcore'},
+  {id:'acidblobs',label:'Acid liquid blobs'},{id:'oscilloscope',label:'Oscilloscope waves'},{id:'equalizer',label:'Equalizer wall'},
+  {id:'circuitry',label:'Techno circuitry'},{id:'cybergrid',label:'Cyber perspective grid'},{id:'vortex',label:'Spiral vortex'},
+  {id:'halftone',label:'Halftone dots'},{id:'glitch',label:'Digital glitch blocks'},{id:'cassette',label:'Cassette deck'},
+  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'}
+];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}
 export function present(value){return String(value??'').trim().length>0}
