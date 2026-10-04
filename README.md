@@ -16,7 +16,8 @@ Current browser build includes:
 - all event fields optional
 - title, tagline, date, time, venue, city, lineup, ticket price, age restriction, organizer, notes and ticket/RSVP URL
 - uploaded local image placement, dragging and scaling
-- 15 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield and Xerox/hardcore looks
+- 27 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield, Xerox/hardcore, acid blobs, oscilloscope waves, equalizer, circuitry, cyber grid, vortex, halftone, glitch, cassette, drum machine, layered rave flyers and Memphis geometry
+- deterministic procedural rendering so download/email rerenders match the current poster variation
 - rave/urban clip art including acid smiley, speaker, vinyl, turntable, synth, microphone, headphones, spray can and lightning bolt
 - curated Pexels stock backgrounds with procedural fallback
 - multiple color palettes
@@ -27,8 +28,9 @@ Current browser build includes:
 - print and social output presets
 - PNG/JPG download
 - browser Print / Save as PDF workflow
-- poster email composer with premade invite, promo, venue, community and minimal messages
+- visible **Email Poster** action with premade invite, promo, venue, community and minimal messages
 - optional self-hosted SMTP mail service in `server/`
+- editable project save/load using `.partyposter.json`, including poster settings and uploaded image data
 
 No field is mandatory. Empty fields collapse out of the composition.
 
@@ -36,11 +38,17 @@ No field is mandatory. Empty fields collapse out of the composition.
 
 Included presets cover Instagram portrait, square, Story 9:16, high-resolution web poster, 5×7, Letter, 11×17, A5, A4 and A3.
 
+## Saving editable projects
+
+Use **Save Project** in the Output panel to download a versioned `.partyposter.json` file. It preserves event fields, template/style selections, palette, procedural variation, typography, image position/scale, output settings and the uploaded image itself. Use **Load Project** to reopen that editable state later.
+
+Project files are JSON and are validated before being applied. Unsupported project versions are rejected rather than silently misread.
+
 ## Emailing posters
 
 GitHub Pages cannot securely contain SMTP credentials, so PartyPosterGen separates the browser composer from the mail-delivery service.
 
-The browser page includes an **Email poster** button. It attaches the currently rendered poster as PNG and offers premade message templates. The included `server/` service sends the message through SMTP.
+The Output panel includes an **Email Poster** button. It attaches the currently rendered poster as PNG and offers premade message templates. The included `server/` service sends the message through SMTP.
 
 The mail server includes:
 
@@ -86,6 +94,7 @@ The application is static HTML/CSS/JavaScript, plus an optional Node mail servic
 
 ```bash
 node tests/poster-core.test.mjs
+node tests/project-and-render.test.mjs
 ```
 
 ## Specification
