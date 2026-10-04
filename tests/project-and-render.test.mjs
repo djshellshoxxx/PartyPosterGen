@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {createSeededRandom} from '../render-random.js';
 import {createProjectDocument,validateProjectDocument,PROJECT_FILE_VERSION} from '../project-state.js';
 
@@ -18,4 +19,10 @@ assert.equal(doc.imageDataUrl,'data:image/png;base64,AAAA');
 assert.equal(validateProjectDocument(doc).ok,true);
 assert.equal(validateProjectDocument({version:999,state:{},output:{}}).ok,false);
 assert.equal(validateProjectDocument(null).ok,false);
+
+const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+assert.match(html,/id="emailPoster"/,'email action must be visible in the editor GUI');
+assert.match(html,/id="saveProject"/,'save project action must be visible in the editor GUI');
+assert.match(html,/id="loadProject"/,'load project action must be visible in the editor GUI');
+assert.match(html,/id="projectFile"/,'project loader input must exist');
 console.log('PartyPosterGen project/render tests: PASS');
