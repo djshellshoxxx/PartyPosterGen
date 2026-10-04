@@ -30,6 +30,8 @@ jobs:
           node --input-type=module --check < background-art.js
           node --input-type=module --check < email-client.js
           node --input-type=module --check < poster-core.js
+          node --input-type=module --check < render-random.js
+          node --input-type=module --check < project-state.js
           node --check server/server.js
 
   deploy:
