@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {createHistory,normalizeQrState,normalizeBorderState,normalizeBackgroundFxState} from '../editor-features.js';
+import {createHistory,normalizeQrState,normalizeBorderState,normalizeBackgroundFxState,normalizeTearoffState} from '../editor-features.js';
 
 const history=createHistory({value:0},3);
 history.push({value:1});
@@ -30,8 +30,15 @@ assert.equal(fx.intensity,1);
 assert.equal(fx.opacity,0);
 assert.equal(fx.patternScale,.1);
 
+const tear=normalizeTearoffState({enabled:true,text:'CALL 604-555-0119',alternateText:'example.com',count:99,height:.9,orientation:'vertical',lineStyle:'dashed'});
+assert.equal(tear.enabled,true);
+assert.equal(tear.count,20);
+assert.equal(tear.height,.35);
+assert.equal(tear.orientation,'vertical');
+assert.equal(tear.lineStyle,'dashed');
+
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY']){
+for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle']){
   assert.match(html,new RegExp(`id=["']${id}["']`),`missing editor control #${id}`);
 }
 console.log('PartyPosterGen editor feature tests: PASS');
