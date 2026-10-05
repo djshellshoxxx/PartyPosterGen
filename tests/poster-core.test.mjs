@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';import {PRESETS,TEMPLATES,BACKGROUND_STY
 assert.equal(TEMPLATES.length>=16,true);
 assert.equal(Object.keys(PRESETS).length>=8,true);
 assert.equal(BACKGROUND_STYLES.length>=27,true);
-for(const id of ['acidblobs','oscilloscope','equalizer','circuitry','cybergrid','vortex','halftone','glitch','cassette','drummachine','flyers','memphis'])assert.ok(BACKGROUND_STYLES.some(bg=>bg.id===id),`missing background style: ${id}`);
+for(const id of ['acidblobs','oscilloscope','equalizer','circuitry','cybergrid','vortex','halftone','glitch','cassette','drummachine','flyers','memphis','nebula','matrixrain','kaleidoscope','blueprint','shards','neontubes','wavegrid','confetti'])assert.ok(BACKGROUND_STYLES.some(bg=>bg.id===id),`missing background style: ${id}`);
 assert.equal(safeFilename('My Rave: 2026!'),'my-rave-2026');
 assert.deepEqual(splitLineup('DJ One\nDJ Two, DJ Three'),['DJ One','DJ Two','DJ Three']);
 assert.deepEqual(compactDetails({date:'Sat',time:'10PM',venue:'',city:'Vancouver'}),['Sat','10PM','Vancouver']);
