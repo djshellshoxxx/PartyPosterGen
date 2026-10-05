@@ -45,4 +45,7 @@ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle','backgroundColor1','backgroundColor2','backgroundEffectColor','backgroundWashColor1','backgroundWashColor2','backgroundWashColor3','borderColor','borderWidth','borderInset','qrLabel','qrBacking','tearoffLabel','tearoffShowCutMarks']){
   assert.match(html,new RegExp(`id=["']${id}["']`),`missing editor control #${id}`);
 }
+const app=fs.readFileSync(new URL('../app-v2.js',import.meta.url),'utf8');
+assert.doesNotMatch(app,/\$\('\[data-field\]'\)\.forEach/,'data-field binding must use querySelectorAll');
+assert.doesNotMatch(app,/\$\('\.bg'\)\.forEach/,'background button binding must use querySelectorAll');
 console.log('PartyPosterGen editor feature tests: PASS');
