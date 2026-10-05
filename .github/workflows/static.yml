@@ -33,6 +33,7 @@ jobs:
           node --input-type=module --check < poster-core.js
           node --input-type=module --check < render-random.js
           node --input-type=module --check < project-state.js
+          node --input-type=module --check < poster-effects.js
           test ! -f editor-features.js || node --input-type=module --check < editor-features.js
           node --check server/server.js
 
