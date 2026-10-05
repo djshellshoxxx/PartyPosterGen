@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {createHistory,normalizeQrState,normalizeBorderState,normalizeBackgroundFxState,normalizeTearoffState} from '../editor-features.js';
+import {createHistory,normalizeQrState,normalizeBorderState,normalizeBackgroundFxState,normalizeTearoffState,BACKGROUND_PATTERNS,BACKGROUND_EFFECTS,BORDER_STYLES} from '../editor-features.js';
 
 const history=createHistory({value:0},3);
 history.push({value:1});
@@ -37,8 +37,12 @@ assert.equal(tear.height,.35);
 assert.equal(tear.orientation,'vertical');
 assert.equal(tear.lineStyle,'dashed');
 
+for(const value of ['topography','hex','sunburst','barcode','bubbles']) assert.ok(BACKGROUND_PATTERNS.includes(value),`missing pattern ${value}`);
+for(const value of ['rain','mist','fog','haze','lightleak','vignette']) assert.ok(BACKGROUND_EFFECTS.includes(value),`missing effect ${value}`);
+for(const value of ['double','neon','grunge','luxury','tape']) assert.ok(BORDER_STYLES.includes(value),`missing border ${value}`);
+
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle']){
+for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle','backgroundColor1','backgroundColor2','backgroundEffectColor','backgroundWashColor1','backgroundWashColor2','backgroundWashColor3','borderColor','borderWidth','borderInset','qrLabel','qrBacking','tearoffLabel','tearoffShowCutMarks']){
   assert.match(html,new RegExp(`id=["']${id}["']`),`missing editor control #${id}`);
 }
 console.log('PartyPosterGen editor feature tests: PASS');
