@@ -42,7 +42,7 @@ for(const value of ['rain','mist','fog','haze','lightleak','vignette']) assert.o
 for(const value of ['double','neon','grunge','luxury','tape']) assert.ok(BORDER_STYLES.includes(value),`missing border ${value}`);
 
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle','backgroundColor1','backgroundColor2','backgroundEffectColor','backgroundWashColor1','backgroundWashColor2','backgroundWashColor3','borderColor','borderWidth','borderInset','qrLabel','qrBacking','tearoffLabel','tearoffShowCutMarks']){
+for(const id of ['undo','redo','backgroundUpload','backgroundFit','backgroundX','backgroundY','backgroundScale','backgroundBaseMode','backgroundPattern','backgroundEffect','backgroundWashType','borderStyle','qrEnabled','qrText','qrSize','qrX','qrY','tearoffEnabled','tearoffText','tearoffAltText','tearoffCount','tearoffHeight','tearoffOrientation','tearoffLineStyle','backgroundColor1','backgroundColor2','backgroundEffectColor','backgroundWashColor1','backgroundWashColor2','backgroundWashColor3','borderColor','borderWidth','borderInset','qrLabel','qrBacking','tearoffLabel','tearoffShowCutMarks','qrLocked','tearoffBackground','tearoffTextColor','tearoffBorderColor']){
   assert.match(html,new RegExp(`id=["']${id}["']`),`missing editor control #${id}`);
 }
 const app=fs.readFileSync(new URL('../app-v2.js',import.meta.url),'utf8');
