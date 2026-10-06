@@ -16,12 +16,12 @@ Current browser build includes:
 - all event fields optional
 - title, tagline, date, time, venue, city, lineup, ticket price, age restriction, organizer, notes and ticket/RSVP URL
 - uploaded local image placement, dragging and scaling
-- 27 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield, Xerox/hardcore, acid blobs, oscilloscope waves, equalizer, circuitry, cyber grid, vortex, halftone, glitch, cassette, drum machine, layered rave flyers and Memphis geometry
+- 31 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield, Xerox/hardcore, acid blobs, oscilloscope waves, equalizer, circuitry, cyber grid, vortex, halftone, glitch, cassette, drum machine, layered rave flyers and Memphis geometry
 - deterministic procedural rendering so download/email rerenders match the current poster variation
-- rave/urban clip art including acid smiley, speaker, vinyl, turntable, synth, microphone, headphones, spray can and lightning bolt
+- rave/urban clip art including acid smiley, speaker, vinyl, turntable, synth, microphone, headphones, spray can, lightning bolt, starburst, cassette, equalizer, crown, palm and sparkles
 - curated Pexels stock backgrounds with procedural fallback
 - multiple color palettes
-- advanced font choices
+- expanded title and body font choices using common system font families and generic fallbacks
 - overlay/grain controls
 - layout density controls
 - QR code generation for ticket/RSVP URLs
