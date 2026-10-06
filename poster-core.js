@@ -42,7 +42,7 @@ export const BACKGROUND_STYLES=[
   {id:'acidblobs',label:'Acid liquid blobs'},{id:'oscilloscope',label:'Oscilloscope waves'},{id:'equalizer',label:'Equalizer wall'},
   {id:'circuitry',label:'Techno circuitry'},{id:'cybergrid',label:'Cyber perspective grid'},{id:'vortex',label:'Spiral vortex'},
   {id:'halftone',label:'Halftone dots'},{id:'glitch',label:'Digital glitch blocks'},{id:'cassette',label:'Cassette deck'},
-  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'}
+  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'},\n  {id:'radial',label:'Radial strobe burst'},{id:'confetti',label:'Confetti scatter'},{id:'diagonal',label:'Diagonal color cuts'},{id:'aurora',label:'Aurora beams'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}
