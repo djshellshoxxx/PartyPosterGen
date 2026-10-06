@@ -1,3 +1,8 @@
+// PartyPosterGen™
+// Copyright © 2026 Sheldon Davidson.
+// Licensed under the MIT License. See LICENSE.
+// SPDX-License-Identifier: MIT
+
 import {PRESETS,TEMPLATES,BACKGROUND_STYLES,preset,template,splitLineup,compactDetails,safeFilename,fontSizeForText} from './poster-core.js';
 import {createBackgroundRenderers} from './background-art.js';
 import {createSeededRandom} from './render-random.js';
