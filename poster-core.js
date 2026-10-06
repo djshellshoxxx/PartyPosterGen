@@ -1,3 +1,8 @@
+// PartyPosterGen™
+// Copyright © 2026 Sheldon Davidson.
+// Licensed under the MIT License. See LICENSE.
+// SPDX-License-Identifier: MIT
+
 export const PRESETS={
   instagram:{label:'Instagram 4:5',w:1080,h:1350,group:'social'},
   square:{label:'Square',w:1080,h:1080,group:'social'},
