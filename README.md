@@ -27,6 +27,7 @@ Current browser build includes:
 - QR code generation for ticket/RSVP URLs
 - print and social output presets
 - PNG/JPG download
+- Event-aware Facebook, X/Twitter and Reddit share links that use the ticket/RSVP URL when provided
 - browser Print / Save as PDF workflow
 - visible **Email Poster** action with premade invite, promo, venue, community and minimal messages
 - optional self-hosted SMTP mail service in `server/`
