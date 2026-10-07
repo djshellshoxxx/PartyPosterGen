@@ -42,7 +42,12 @@ export const BACKGROUND_STYLES=[
   {id:'acidblobs',label:'Acid liquid blobs'},{id:'oscilloscope',label:'Oscilloscope waves'},{id:'equalizer',label:'Equalizer wall'},
   {id:'circuitry',label:'Techno circuitry'},{id:'cybergrid',label:'Cyber perspective grid'},{id:'vortex',label:'Spiral vortex'},
   {id:'halftone',label:'Halftone dots'},{id:'glitch',label:'Digital glitch blocks'},{id:'cassette',label:'Cassette deck'},
-  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'}
+  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'},
+  {id:'lasergrid',label:'Laser grid'},{id:'neonwaves',label:'Neon waves'},{id:'strobestripes',label:'Strobe stripes'},
+  {id:'synthwavesun',label:'Synthwave sun'},{id:'plasma',label:'Plasma glow'},{id:'soundwaves',label:'Sound wave rings'},
+  {id:'checkerwarp',label:'Checker warp'},{id:'holographic',label:'Holographic sheen'},{id:'acidsmileys',label:'Acid smiley pattern'},
+  {id:'mandelbrot',label:'Mandelbrot fractal'},{id:'julia',label:'Julia set'},{id:'burningjulia',label:'Burning Julia'},
+  {id:'tricorn',label:'Tricorn fractal'},{id:'nova',label:'Nova fractal'},{id:'phoenixjulia',label:'Phoenix Julia'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}
