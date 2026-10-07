@@ -47,7 +47,9 @@ export const BACKGROUND_STYLES=[
   {id:'synthwavesun',label:'Synthwave sun'},{id:'plasma',label:'Plasma glow'},{id:'soundwaves',label:'Sound wave rings'},
   {id:'checkerwarp',label:'Checker warp'},{id:'holographic',label:'Holographic sheen'},{id:'acidsmileys',label:'Acid smiley pattern'},
   {id:'mandelbrot',label:'Mandelbrot fractal'},{id:'julia',label:'Julia set'},{id:'burningjulia',label:'Burning Julia'},
-  {id:'tricorn',label:'Tricorn fractal'},{id:'nova',label:'Nova fractal'},{id:'phoenixjulia',label:'Phoenix Julia'}
+  {id:'tricorn',label:'Tricorn fractal'},{id:'nova',label:'Nova fractal'},{id:'phoenixjulia',label:'Phoenix Julia'},
+  {id:'dendrite',label:'Dendrite Julia'},{id:'douady',label:'Douady rabbit fractal'},{id:'siegel',label:'Siegel disk fractal'},
+  {id:'seahorse',label:'Seahorse valley fractal'},{id:'starfield',label:'Neon starfield'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}

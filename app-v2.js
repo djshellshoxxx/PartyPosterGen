@@ -26,7 +26,7 @@ const stock={
   raveStroboscope:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1600&q=80', // Stroboscope effect
   raveHologram:'https://images.unsplash.com/photo-1504680394692-08ca1aa29127?w=1600&q=80', // Holographic stage
   raveUVLight:'https://images.unsplash.com/photo-1485531926612-8d07f892c869?w=1600&q=80', // UV light painted
-  raveConcentricLights:'https://images.unsplash.com/photo-1514307906c596-48865917a320?w=1600&q=80', // Concentric lights
+  raveConcentricLights:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80', // Concentric lights
   raveLaserGrid:'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1600&q=80' // Laser grid effect
 };
 const palettes=[['#07070b','#ff2fb2','#6ef2ff','#ffffff'],['#07090c','#f04d32','#ffcc48','#f5f1e8'],['#0a0a0a','#d7d7d7','#ffffff','#7c8794'],['#080b22','#6d5cff','#35e6ff','#f5f7ff'],['#151006','#ffbd66','#ff6f61','#fff2d7'],['#0b0a10','#b89958','#ece0bd','#ffffff'],['#090b11','#386ca6','#99b8d7','#f2f6fa'],['#100b08','#e57231','#d8b36a','#f5ead8']];
