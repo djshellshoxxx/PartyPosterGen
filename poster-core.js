@@ -42,7 +42,18 @@ export const BACKGROUND_STYLES=[
   {id:'acidblobs',label:'Acid liquid blobs'},{id:'oscilloscope',label:'Oscilloscope waves'},{id:'equalizer',label:'Equalizer wall'},
   {id:'circuitry',label:'Techno circuitry'},{id:'cybergrid',label:'Cyber perspective grid'},{id:'vortex',label:'Spiral vortex'},
   {id:'halftone',label:'Halftone dots'},{id:'glitch',label:'Digital glitch blocks'},{id:'cassette',label:'Cassette deck'},
-  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'}
+  {id:'drummachine',label:'Drum machine sequencer'},{id:'flyers',label:'Layered rave flyers'},{id:'memphis',label:'Memphis geometry'},
+  {id:'mirrorball',label:'Mirrorball spotlights'},{id:'strobe',label:'Strobe light bars'},{id:'confetti',label:'Confetti burst'},
+  {id:'starburst',label:'Starburst rays'},{id:'kaleidoscope',label:'Kaleidoscope'},{id:'zigzag',label:'Zigzag stripes'},
+  {id:'rings',label:'Hypnotic rings'},{id:'plasma',label:'Plasma field'},{id:'searchlights',label:'Searchlight beams'},
+  {id:'bubbles',label:'Lava bubbles'}
+];
+export const SYSTEM_FONTS=['Impact','Arial Black','Arial','Helvetica','Georgia','Trebuchet MS','Courier New','Verdana'];
+export const BUNDLED_FONTS=[
+  {family:'Monoton',file:'Monoton-Regular.ttf'},{family:'Bungee',file:'Bungee-Regular.ttf'},{family:'Orbitron',file:'Orbitron-Variable.ttf'},
+  {family:'Anton',file:'Anton-Regular.ttf'},{family:'Bebas Neue',file:'BebasNeue-Regular.ttf'},{family:'Righteous',file:'Righteous-Regular.ttf'},
+  {family:'Audiowide',file:'Audiowide-Regular.ttf'},{family:'Russo One',file:'RussoOne-Regular.ttf'},{family:'Pacifico',file:'Pacifico-Regular.ttf'},
+  {family:'Bangers',file:'Bangers-Regular.ttf'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}

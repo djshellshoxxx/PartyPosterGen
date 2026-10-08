@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE.
 // SPDX-License-Identifier: MIT
 
-import {PRESETS,TEMPLATES,BACKGROUND_STYLES,preset,template,splitLineup,compactDetails,safeFilename,fontSizeForText} from './poster-core.js';
+import {PRESETS,TEMPLATES,BACKGROUND_STYLES,SYSTEM_FONTS,BUNDLED_FONTS,preset,template,splitLineup,compactDetails,safeFilename,fontSizeForText} from './poster-core.js';
 import {createBackgroundRenderers} from './background-art.js';
 import {createSeededRandom} from './render-random.js';
 import {createProjectDocument,validateProjectDocument} from './project-state.js';
@@ -27,6 +27,7 @@ function init(){
  $('#templates').innerHTML=TEMPLATES.map(t=>`<button class="template ${t.id===state.template?'active':''}" data-template="${t.id}"><strong>${t.name}</strong><span>${t.tags.join(' · ')}</span></button>`).join('');
  $('#palettes').innerHTML=palettes.map((p,i)=>`<button class="swatch ${i===state.palette?'active':''}" data-palette="${i}" style="background:linear-gradient(135deg,${p[1]} 0 50%,${p[2]} 50%)" aria-label="Palette ${i+1}"></button>`).join('');
  $('#backgroundStyle').innerHTML=BACKGROUND_STYLES.map(bg=>`<option value="${bg.id}">${bg.label}</option>`).join('');$('#backgroundStyle').value=state.bgStyle;
+ const fontOptions=[...SYSTEM_FONTS,...BUNDLED_FONTS.map(f=>f.family)].map(f=>`<option value="${f}">${f}</option>`).join('');$('#titleFont').innerHTML=fontOptions;$('#bodyFont').innerHTML=fontOptions;loadBundledFonts();
  $('#preset').innerHTML=Object.entries(PRESETS).map(([k,p])=>`<option value="${k}">${p.label}</option>`).join('');$('#preset').value='instagram';
  $$('[data-field]').forEach(el=>el.addEventListener('input',()=>{state[el.dataset.field]=el.value;render()}));
  $('#templates').onclick=e=>{const b=e.target.closest('[data-template]');if(!b)return;state.template=b.dataset.template;const t=template(state.template);state.titleFont=t.titleFont;state.bodyFont=t.bodyFont;$('#titleFont').value=state.titleFont;$('#bodyFont').value=state.bodyFont;$('.template.active')?.classList.remove('active');b.classList.add('active');$('#templateName').textContent=t.name;if(t.id==='hiphop'&&state.bg==='procedural')state.bgStyle='urban';if(t.id==='turntablist'&&state.bg==='procedural')state.bgStyle='turntable';if(t.id==='synthwave'&&state.bg==='procedural')state.bgStyle='synth';if(t.id==='hardcore'&&state.bg==='procedural')state.bgStyle='xerox';$('#backgroundStyle').value=state.bgStyle;render()};
@@ -85,4 +86,8 @@ function syncUiFromState(){
 }
 function saveProject(){const doc=createProjectDocument(state,{preset:$('#preset').value,format:$('#format').value},state.imageDataUrl);const blob=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${safeFilename(state.title)}.partyposter.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);setProjectStatus('Project saved.')}
 function loadProjectFile(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const doc=JSON.parse(String(reader.result||'')),check=validateProjectDocument(doc);if(!check.ok)throw new Error(check.error);for(const key of projectKeys)if(Object.hasOwn(doc.state,key))state[key]=doc.state[key];state.palette=Math.max(0,Math.min(palettes.length-1,Number(state.palette)||0));state.variation=Number(state.variation)||0;state.overlay=Math.max(0,Math.min(.85,Number(state.overlay)||0));state.grain=Math.max(0,Math.min(1,Number(state.grain)||0));state.imageX=Math.max(0,Math.min(1,Number(state.imageX)||.5));state.imageY=Math.max(0,Math.min(1,Number(state.imageY)||.5));state.imageScale=Math.max(.4,Math.min(3,Number(state.imageScale)||1));$('#preset').value=PRESETS[doc.output.preset]?doc.output.preset:'instagram';$('#format').value=doc.output.format==='jpg'?'jpg':'png';syncUiFromState();const p=preset($('#preset').value);canvas.width=p.w;canvas.height=p.h;if(doc.imageDataUrl)loadImageDataUrl(doc.imageDataUrl,false);else{state.image=null;state.imageDataUrl='';if(state.bg==='image')state.bg='procedural';syncUiFromState();render()}setProjectStatus('Project loaded.')}catch(e){setProjectStatus(`Could not load project: ${e.message}`)}finally{$('#projectFile').value=''}};reader.onerror=()=>setProjectStatus('Could not read project file.');reader.readAsText(file)}
+function loadBundledFonts(){
+ if(!('FontFace' in window))return;
+ Promise.all(BUNDLED_FONTS.map(f=>{const face=new FontFace(f.family,`url(fonts/${f.file})`,{weight:'100 900',display:'block'});document.fonts.add(face);return face.load()})).then(()=>render()).catch(()=>{$('#assetStatus').textContent='Some bundled fonts failed to load; system fonts are used instead.'})
+}
 init();
