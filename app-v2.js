@@ -5,6 +5,7 @@
 
 import {PRESETS,TEMPLATES,BACKGROUND_STYLES,SYSTEM_FONTS,BUNDLED_FONTS,preset,template,splitLineup,compactDetails,safeFilename,fontSizeForText} from './poster-core.js';
 import {createBackgroundRenderers} from './background-art.js';
+import {initSoundcloudPlayer} from './soundcloud-player.js';
 import {createSeededRandom} from './render-random.js';
 import {createProjectDocument,validateProjectDocument} from './project-state.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -90,4 +91,5 @@ function loadBundledFonts(){
  if(!('FontFace' in window))return;
  Promise.all(BUNDLED_FONTS.map(f=>{const face=new FontFace(f.family,`url(fonts/${f.file})`,{weight:'100 900',display:'block'});document.fonts.add(face);return face.load()})).then(()=>render()).catch(()=>{$('#assetStatus').textContent='Some bundled fonts failed to load; system fonts are used instead.'})
 }
+initSoundcloudPlayer();
 init();
