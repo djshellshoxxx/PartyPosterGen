@@ -18,12 +18,18 @@ Current browser build includes:
 - uploaded local image placement, dragging and scaling
 - 27 built-in procedural background styles including lasers, tunnel, speaker wall, vinyl, turntables, synth hardware, urban/graffiti, boombox, warehouse, starfield, Xerox/hardcore, acid blobs, oscilloscope waves, equalizer, circuitry, cyber grid, vortex, halftone, glitch, cassette, drum machine, layered rave flyers and Memphis geometry
 - deterministic procedural rendering so download/email rerenders match the current poster variation
-- rave/urban clip art including acid smiley, speaker, vinyl, turntable, synth, microphone, headphones, spray can and lightning bolt
+- 33 built-in clip-art and event-symbol choices, including multiple stickers, instrument art, alcohol and cocktail icons, no-smoking/no-drug/no-drink-driving symbols, ticket, ID, venue and security symbols
 - curated Pexels stock backgrounds with procedural fallback
 - multiple color palettes
 - advanced font choices
+- multiple simultaneous transparent effects with opacity controls, including lens flares, spotlights, confetti, glitter, scanlines, haze, lightning, storm clouds, circuits, foam, fire, lava, waves, stars, snow, rain, webs, crystals, money and four fractal treatments
+- multiple uploaded image layers with individual position, scale, rotation, opacity and optional white outline
+- reorderable text, image, clip-art, notice and effect layers with the background fixed behind them
+- solid or gradient backgrounds and one-click color inversion
+- optional independent text and background colors, opacity, font size, bold, italic, underline and strike-through for each event field
 - overlay/grain controls
 - layout density controls
+- editable promoter notice stickers for age policies, BYOB, door checks, ticketing, dress code, re-entry, coat check, payment and event rules
 - QR code generation for ticket/RSVP URLs
 - print and social output presets
 - PNG/JPG download
