@@ -46,14 +46,29 @@ export const BACKGROUND_STYLES=[
   {id:'mirrorball',label:'Mirrorball spotlights'},{id:'strobe',label:'Strobe light bars'},{id:'confetti',label:'Confetti burst'},
   {id:'starburst',label:'Starburst rays'},{id:'kaleidoscope',label:'Kaleidoscope'},{id:'zigzag',label:'Zigzag stripes'},
   {id:'rings',label:'Hypnotic rings'},{id:'plasma',label:'Plasma field'},{id:'searchlights',label:'Searchlight beams'},
-  {id:'bubbles',label:'Lava bubbles'}
+  {id:'bubbles',label:'Lava bubbles'},
+  {id:'fireworks',label:'Fireworks bursts'},{id:'radar',label:'Radar sweep'},{id:'bokeh',label:'Bokeh lights'},
+  {id:'ledmatrix',label:'LED matrix'},{id:'prisms',label:'Prism triangles'},{id:'smileys',label:'Acid smiley grid'},
+  {id:'diamonds',label:'Diamond tiles'},{id:'ripples',label:'Ripple waves'},{id:'scanlines',label:'CRT scanlines'},
+  {id:'sparks',label:'Spark scatter'}
 ];
 export const SYSTEM_FONTS=['Impact','Arial Black','Arial','Helvetica','Georgia','Trebuchet MS','Courier New','Verdana'];
 export const BUNDLED_FONTS=[
   {family:'Monoton',file:'Monoton-Regular.ttf'},{family:'Bungee',file:'Bungee-Regular.ttf'},{family:'Orbitron',file:'Orbitron-Variable.ttf'},
   {family:'Anton',file:'Anton-Regular.ttf'},{family:'Bebas Neue',file:'BebasNeue-Regular.ttf'},{family:'Righteous',file:'Righteous-Regular.ttf'},
   {family:'Audiowide',file:'Audiowide-Regular.ttf'},{family:'Russo One',file:'RussoOne-Regular.ttf'},{family:'Pacifico',file:'Pacifico-Regular.ttf'},
-  {family:'Bangers',file:'Bangers-Regular.ttf'}
+  {family:'Bangers',file:'Bangers-Regular.ttf'},
+  {family:'Black Ops One',file:'BlackOpsOne-Regular.ttf'},{family:'Press Start 2P',file:'PressStart2P-Regular.ttf'},
+  {family:'Rubik Mono One',file:'RubikMonoOne-Regular.ttf'},{family:'Shrikhand',file:'Shrikhand-Regular.ttf'},
+  {family:'Lobster',file:'Lobster-Regular.ttf'},{family:'Sigmar One',file:'SigmarOne-Regular.ttf'},
+  {family:'Creepster',file:'Creepster-Regular.ttf'},{family:'Bowlby One',file:'BowlbyOne-Regular.ttf'},
+  {family:'Bungee Shade',file:'BungeeShade-Regular.ttf'}
+];
+export const BORDER_STYLES=[
+  {id:'none',label:'No border'},{id:'solid',label:'Solid frame'},{id:'double',label:'Double line'},
+  {id:'neon',label:'Neon glow'},{id:'dashed',label:'Dashed'},{id:'hazard',label:'Hazard stripes'},
+  {id:'checker',label:'Checker edge'},{id:'filmstrip',label:'Film strip'},{id:'brackets',label:'Corner brackets'},
+  {id:'zigzag',label:'Zigzag edge'},{id:'rainbow',label:'Rainbow frame'}
 ];
 export function safeFilename(value='party-poster'){const s=String(value).normalize('NFKD').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').toLowerCase();return s||'party-poster'}
 export function splitLineup(value=''){return String(value).split(/\n|,|•|\//).map(s=>s.trim()).filter(Boolean)}

@@ -1,10 +1,11 @@
-import assert from 'node:assert/strict';import {existsSync} from 'node:fs';import {PRESETS,TEMPLATES,BACKGROUND_STYLES,BUNDLED_FONTS,safeFilename,splitLineup,compactDetails,preset,template,aspect,fontSizeForText} from '../poster-core.js';
+import assert from 'node:assert/strict';import {existsSync} from 'node:fs';import {PRESETS,TEMPLATES,BACKGROUND_STYLES,BUNDLED_FONTS,BORDER_STYLES,safeFilename,splitLineup,compactDetails,preset,template,aspect,fontSizeForText} from '../poster-core.js';
 assert.equal(TEMPLATES.length>=16,true);
 assert.equal(Object.keys(PRESETS).length>=8,true);
-assert.equal(BACKGROUND_STYLES.length>=37,true);
-assert.equal(BUNDLED_FONTS.length>=10,true);
+assert.equal(BACKGROUND_STYLES.length>=47,true);
+assert.equal(BUNDLED_FONTS.length>=19,true);
+assert.equal(BORDER_STYLES.length>=10,true);
 for(const f of BUNDLED_FONTS)assert.ok(existsSync(new URL('../fonts/'+f.file,import.meta.url)),`missing font file: ${f.file}`);
-for(const id of ['acidblobs','oscilloscope','equalizer','circuitry','cybergrid','vortex','halftone','glitch','cassette','drummachine','flyers','memphis','mirrorball','strobe','confetti','starburst','kaleidoscope','zigzag','rings','plasma','searchlights','bubbles'])assert.ok(BACKGROUND_STYLES.some(bg=>bg.id===id),`missing background style: ${id}`);
+for(const id of ['acidblobs','oscilloscope','equalizer','circuitry','cybergrid','vortex','halftone','glitch','cassette','drummachine','flyers','memphis','mirrorball','strobe','confetti','starburst','kaleidoscope','zigzag','rings','plasma','searchlights','bubbles','fireworks','radar','bokeh','ledmatrix','prisms','smileys','diamonds','ripples','scanlines','sparks'])assert.ok(BACKGROUND_STYLES.some(bg=>bg.id===id),`missing background style: ${id}`);
 assert.equal(safeFilename('My Rave: 2026!'),'my-rave-2026');
 assert.deepEqual(splitLineup('DJ One\nDJ Two, DJ Three'),['DJ One','DJ Two','DJ Three']);
 assert.deepEqual(compactDetails({date:'Sat',time:'10PM',venue:'',city:'Vancouver'}),['Sat','10PM','Vancouver']);
