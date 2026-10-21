@@ -99,9 +99,10 @@ Uploaded images and event data remain in the browser. They are sent off-device o
 The application is static HTML/CSS/JavaScript, plus an optional Node mail service.
 
 ```bash
-node tests/poster-core.test.mjs
-node tests/project-and-render.test.mjs
+node --test tests/*.test.mjs
 ```
+
+Checked on this snapshot: 7 tests pass across the four files (`decorations-smoke`, `mailer-url`, `poster-core`, `project-and-render`).
 
 ## Specification
 
@@ -118,3 +119,7 @@ Experiments:
 
 - Binaural Web Beats: https://djshellshoxxx.github.io/binerualwebeats/
 - BabbleForge: https://djshellshoxxx.github.io/babbleforge/
+
+## Wiki
+
+Wiki source pages are in [docs/wiki/](docs/wiki/Home.md): user guide, developer guide, architecture rationale and codebase map.
